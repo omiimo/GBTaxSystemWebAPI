@@ -26,12 +26,12 @@ namespace WebAPI.IntegrationTest
             var client = _factory.GetAnonymousClient();
             var apiEndPoint = "/api/purchase";
             var contentGrossAmount = Utilities.GetRequestContentFromJSONString(paymentInfoJson);
-            PurchaseData expectedResponseObj = JsonConvert.DeserializeObject<PurchaseData>(expectedResponseJson);
+            PurchaseDataModel expectedResponseObj = JsonConvert.DeserializeObject<PurchaseDataModel>(expectedResponseJson);
 
             //Act
             var httpResponse = await client.PostAsync(apiEndPoint, contentGrossAmount);
             var responseString = await httpResponse.Content.ReadAsStringAsync();
-            PurchaseData responseObj = JsonConvert.DeserializeObject<PurchaseData>(responseString);
+            PurchaseDataModel responseObj = JsonConvert.DeserializeObject<PurchaseDataModel>(responseString);
 
             // Assert - HTTP success response
             Assert.True(httpResponse.IsSuccessStatusCode);

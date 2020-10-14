@@ -9,7 +9,7 @@ namespace GBTaxSystemWebAPI.Services
 {
     public class PurchaseService : IPurchaseService
     {
-        public Task<PurchaseData> CalculatePurchaseInfo(PurchaseData purchaseData)
+        public Task<PurchaseDataModel> CalculatePurchaseInfo(PurchaseDataModel purchaseData)
         {
             ValidateRequest(purchaseData);           
 
@@ -37,7 +37,7 @@ namespace GBTaxSystemWebAPI.Services
         }
 
 
-        private void ValidateRequest(PurchaseData purchaseData)
+        private void ValidateRequest(PurchaseDataModel purchaseData)
         {
             IDictionary<string, string[]> errors = new Dictionary<string, string[]>();
 
@@ -49,13 +49,13 @@ namespace GBTaxSystemWebAPI.Services
 
             if (purchaseData.GrossAmount == null && purchaseData.NetAmount == null && purchaseData.VATAmount == null)
             {
-                errors.Add(nameof(PurchaseData),
+                errors.Add(nameof(PurchaseDataModel),
                     new string[] { "There should be at least one Input" });
             }
 
             if (purchaseData.GrossAmount == 0 || purchaseData.NetAmount == 0 || purchaseData.VATAmount == 0)
             {
-                errors.Add(nameof(PurchaseData),
+                errors.Add(nameof(PurchaseDataModel),
                     new string[] { "Input values should not be 0" });
             }
 

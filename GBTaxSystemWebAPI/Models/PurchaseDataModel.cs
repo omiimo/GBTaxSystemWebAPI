@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GBTaxSystemWebAPI.Models
 {
-    public class PurchaseData
+    public class PurchaseDataModel
     {
         [Required(ErrorMessage ="VATRate is a required field")]
         [RegularExpression("^(10|13|20){1}$", ErrorMessage ="Valid VATRates are : 10, 13, 20")]

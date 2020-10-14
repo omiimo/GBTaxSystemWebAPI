@@ -18,15 +18,15 @@ namespace WebAPI.UnitTest
         /// <param name="purchaseData">A Valid pre-calculated input purchase data</param>
         [Theory]
         [ValidPurchaseInfoTestData]
-        public async void Should_CalculateAndComparePurchaseData_With_PreCalculatedPurchaseData(PurchaseData purchaseData)
+        public async void Should_CalculateAndComparePurchaseData_With_PreCalculatedPurchaseData(PurchaseDataModel purchaseData)
         {
             // Arrange
             IPurchaseService purchaseService = new PurchaseService();
 
             // Act
-            var resultGrossAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount });
-            var resultVATAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = purchaseData.VATRate, VATAmount = purchaseData.VATAmount });
-            var resultNetAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = purchaseData.VATRate, NetAmount = purchaseData.NetAmount });
+            var resultGrossAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount });
+            var resultVATAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = purchaseData.VATRate, VATAmount = purchaseData.VATAmount });
+            var resultNetAmount = await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = purchaseData.VATRate, NetAmount = purchaseData.NetAmount });
 
             // Assert
             Assert.Equal(purchaseData.VATRate, resultGrossAmount.VATRate);
@@ -65,11 +65,11 @@ namespace WebAPI.UnitTest
 
             //Act - assert
             if (expectedResult == false)
-                await Assert.ThrowsAsync<ValidationException>(async () => await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = vatRate, GrossAmount = 100 }));
+                await Assert.ThrowsAsync<ValidationException>(async () => await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = vatRate, GrossAmount = 100 }));
             else
             {
-                var result = await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = vatRate, GrossAmount = 100 });
-                Assert.IsType<PurchaseData>(result);
+                var result = await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = vatRate, GrossAmount = 100 });
+                Assert.IsType<PurchaseDataModel>(result);
                 Assert.Equal(vatRate, result.VATRate);
             }
 
@@ -82,7 +82,7 @@ namespace WebAPI.UnitTest
         /// <param name="expectedResult">Expected result for the purchaseData</param>
         [Theory]
         [PurchaseInfoInputTestData]
-        public async void Should_ValidateInputPurchaseDataModel_With_ExpectedResult(PurchaseData purchaseData, bool expectedResult)
+        public async void Should_ValidateInputPurchaseDataModel_With_ExpectedResult(PurchaseDataModel purchaseData, bool expectedResult)
         {
             //Arrange
             IPurchaseService purchaseService = new PurchaseService();
@@ -90,12 +90,12 @@ namespace WebAPI.UnitTest
             //Act & Assert
             if (expectedResult == false)
             {
-                await Assert.ThrowsAsync<ValidationException>(async () => await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount, NetAmount = purchaseData.NetAmount, VATAmount = purchaseData.VATAmount }));
+                await Assert.ThrowsAsync<ValidationException>(async () => await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount, NetAmount = purchaseData.NetAmount, VATAmount = purchaseData.VATAmount }));
             }
             else
             {
-                var result = await purchaseService.CalculatePurchaseInfo(new PurchaseData { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount, NetAmount = purchaseData.NetAmount, VATAmount = purchaseData.VATAmount });
-                Assert.IsType<PurchaseData>(result);
+                var result = await purchaseService.CalculatePurchaseInfo(new PurchaseDataModel { VATRate = purchaseData.VATRate, GrossAmount = purchaseData.GrossAmount, NetAmount = purchaseData.NetAmount, VATAmount = purchaseData.VATAmount });
+                Assert.IsType<PurchaseDataModel>(result);
                 Assert.Equal(purchaseData.VATRate, result.VATRate);
             }
 

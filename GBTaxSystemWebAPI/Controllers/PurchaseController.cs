@@ -21,7 +21,7 @@ namespace GBTaxSystemWebAPI.Controllers
         }
         // POST api/<PurchaseController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PurchaseData purchaseData)
+        public async Task<IActionResult> Post([FromBody] PurchaseDataModel purchaseData)
         {
             return Ok(await _purchaseService.CalculatePurchaseInfo(purchaseData));
         }

@@ -8,6 +8,6 @@ namespace GBTaxSystemWebAPI.Services
 {
     public interface IPurchaseService
     {
-        Task<PurchaseData> CalculatePurchaseInfo(PurchaseData purchaseData);
+        Task<PurchaseDataModel> CalculatePurchaseInfo(PurchaseDataModel purchaseData);
     } 
 }
