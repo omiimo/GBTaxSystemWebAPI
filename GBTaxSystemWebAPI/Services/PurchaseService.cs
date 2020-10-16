@@ -9,6 +9,11 @@ namespace GBTaxSystemWebAPI.Services
 {
     public class PurchaseService : IPurchaseService
     {
+        /// <summary>
+        /// Calculates net, gross and VAT amount
+        /// </summary>
+        /// <param name="purchaseData">Input Purchase data</param>
+        /// <returns>Calculated purchase data</returns>
         public Task<PurchaseDataModel> CalculatePurchaseInfo(PurchaseDataModel purchaseData)
         {
             ValidateRequest(purchaseData);           
@@ -35,7 +40,6 @@ namespace GBTaxSystemWebAPI.Services
             }
             return Task.FromResult(purchaseData);
         }
-
 
         private void ValidateRequest(PurchaseDataModel purchaseData)
         {
